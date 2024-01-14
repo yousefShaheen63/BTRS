@@ -1,0 +1,62 @@
+﻿@model IEnumerable<BTRS.Models.Trip>
+
+<h1>My Bookings</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BusNumber)
+            </th>
+            <th>
+                @Html.DisplayName("Selected Seats")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Destination)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusNumber)
+                </td>
+                <td>
+                    <!-- Display the number of seats chosen by the passenger -->
+                    @if (item.SelectedSeats.HasValue)
+                    {
+                        @Html.DisplayFor(modelItem => item.SelectedSeats)
+                    }
+                    else
+                    {
+                        <span>No seats Available</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="CancelBooking" asp-route-id="@item.TripID">Cancel Booking</a>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
+<div>
+    <a asp-action="AvailableTripList">Go Back</a>
+</div>
